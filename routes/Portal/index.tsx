@@ -1,6 +1,6 @@
 import { PageProps } from "$fresh/server.ts";
 
-export default function Home(props: PageProps) {
+export default function Home(_props: PageProps) {
   return (
     <>
     </>

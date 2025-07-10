@@ -2,25 +2,34 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $Portal_layout from "./routes/Portal/_layout.tsx";
 import * as $Portal_index from "./routes/Portal/index.tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $login from "./routes/login.tsx";
+import * as $Desplegables_Toolbar_Articulo from "./islands/Desplegables/Toolbar_Articulo.tsx";
+import * as $Desplegables_Toolbar_Cliente from "./islands/Desplegables/Toolbar_Cliente.tsx";
+import * as $Desplegables_Toolbar_Otros from "./islands/Desplegables/Toolbar_Otros.tsx";
+import * as $Desplegables_Toolbar_Pedidos from "./islands/Desplegables/Toolbar_Pedidos.tsx";
 import * as $buttons_Logout from "./islands/buttons/Logout.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
-    "./routes/Portal/_layout.tsx": $Portal_layout,
     "./routes/Portal/index.tsx": $Portal_index,
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
+    "./routes/_layout.tsx": $_layout,
     "./routes/_middleware.ts": $_middleware,
     "./routes/login.tsx": $login,
   },
   islands: {
+    "./islands/Desplegables/Toolbar_Articulo.tsx":
+      $Desplegables_Toolbar_Articulo,
+    "./islands/Desplegables/Toolbar_Cliente.tsx": $Desplegables_Toolbar_Cliente,
+    "./islands/Desplegables/Toolbar_Otros.tsx": $Desplegables_Toolbar_Otros,
+    "./islands/Desplegables/Toolbar_Pedidos.tsx": $Desplegables_Toolbar_Pedidos,
     "./islands/buttons/Logout.tsx": $buttons_Logout,
   },
   baseUrl: import.meta.url,

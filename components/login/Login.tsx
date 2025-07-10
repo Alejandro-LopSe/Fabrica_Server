@@ -29,7 +29,7 @@ export const Login: FunctionalComponent = () => {
         />
         <button
           type="submit"
-          class="flex self-center bg-teal-800 border-2 border-gray-500 rounded-md p-x-2  shadow-lg"
+          class="flex self-center bg-gray-800 text-slate-300 border-2 border-gray-500 rounded-md px-2 py-0  shadow-lg"
         >
           Entrar
         </button>
