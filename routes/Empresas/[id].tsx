@@ -14,10 +14,10 @@ import {
 
 export const handler: Handlers<
   {
-    cliente: BBDD_Cliente;
+    cliente?: BBDD_Cliente;
     contacto?: BBDD_Contacto;
     direccion?: BBDD_Direccion;
-    empresa?: BBDD_Empresa;
+    empresa: BBDD_Empresa;
   },
   MyState
 > = {
@@ -27,40 +27,45 @@ export const handler: Handlers<
     ctx: FreshContext<
       MyState,
       {
-        cliente: BBDD_Cliente;
+        cliente?: BBDD_Cliente;
         contacto?: BBDD_Contacto;
         direccion?: BBDD_Direccion;
-        empresa?: BBDD_Empresa;
+        empresa: BBDD_Empresa;
       }
     >,
   ) {
     const id = ctx.params.id;
     if (id) {
-      const [cli] = await db!.query(
-        `SELECT * FROM fabrica.clientes WHERE id_cliente=${id} AND Activo=1`,
-      );
-      const [cont] = await db!.query(
-        `SELECT * FROM fabrica.contacto WHERE id_cliente=${id} `,
-      );
-      const [dir] = await db!.query(
-        `SELECT * FROM fabrica.direccion WHERE id_cliente=${id} `,
-      );
       const [em] = await db!.query(
-        `SELECT * FROM fabrica.empresa WHERE id_cliente=${id} `,
+        `SELECT * FROM fabrica.empresa WHERE id_empresa=${id} AND Activo=1 `,
       );
       //@ts-expect-error check always exists
-      if (cli.length > 0) {
+      if (em.length > 0) {
         //@ts-expect-error check always exists
-        const cliente: BBDD_Cliente = cli[0];
+        const empresa: BBDD_Empresa = em[0];
+
+        const [cli] = await db!.query(
+          `SELECT * FROM fabrica.clientes WHERE id_cliente=${
+            //@ts-expect-error check always exists
+            em.id_cliente ? em.id_cliente : 0} AND Activo=1 `,
+        );
+
+        const [cont] = await db!.query(
+          `SELECT * FROM fabrica.contacto WHERE id_empresa=${id} `,
+        );
+        const [dir] = await db!.query(
+          `SELECT * FROM fabrica.direccion WHERE id_empresa=${id} `,
+        );
 
         const data = {
-          cliente: cliente,
+          //@ts-expect-error check always exists
+          cliente: cli.length > 0 ? em[0] : undefined,
           //@ts-expect-error check always exists
           contacto: cont.length > 0 ? cont[0] : undefined,
           //@ts-expect-error check always exists
           direccion: dir.length > 0 ? dir[0] : undefined,
-          //@ts-expect-error check always exists
-          empresa: em.length > 0 ? em[0] : undefined,
+
+          empresa: empresa,
         };
         return ctx.render(data);
       }
@@ -72,10 +77,10 @@ export const handler: Handlers<
 export default function Home(
   props: PageProps<
     {
-      cliente: BBDD_Cliente;
+      cliente?: BBDD_Cliente;
       contacto?: BBDD_Contacto;
       direccion?: BBDD_Direccion;
-      empresa?: BBDD_Empresa;
+      empresa: BBDD_Empresa;
     },
     MyState
   >,
@@ -84,11 +89,11 @@ export default function Home(
 
   return (
     <div class="flex flex-row justify-start min-h-[calc(100dvh-5rem)] min-w-[calc(100dvw-6rem)]">
-      <Base cliente={props.data.cliente}></Base>
+      <Base cliente={props.data.empresa}></Base>
       <div class="flex flex-col justify-start w-full h-min">
         <Contacto contacto={props.data.contacto}></Contacto>
         <Direccion direccion={props.data.direccion}></Direccion>
-        <Empresa empresa={props.data.empresa}></Empresa>
+        <Empresa empresa={props.data.cliente}></Empresa>
       </div>
     </div>
   );

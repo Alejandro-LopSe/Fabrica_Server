@@ -5,6 +5,13 @@ export const handler = async (
   req: Request,
   ctx: FreshContext<MyState>,
 ) => {
+  if (!ctx.route) {
+    const headers = new Headers({ location: "/Portal" });
+    return new Response("", {
+      headers,
+      status: 302,
+    });
+  }
   if (ctx.destination !== "route") {
     const res = await ctx.next();
     return res;

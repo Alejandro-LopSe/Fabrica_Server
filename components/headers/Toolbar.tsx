@@ -9,7 +9,7 @@ export const Toolbar: FunctionalComponent<{ state: MyState }> = (
   { state },
 ) => {
   return (
-    <div class="flex flex-col w-fit min-h-dvh  bg-gray-800 text-white items-start justify-start ">
+    <div class="flex flex-col w-20 min-h-[calc(100dvh-4rem)]  bg-gray-800 text-white items-start justify-start ">
       <a href="/Portal" class="flex w-full border-b-2 border-gray-700 p-2">
         Home
       </a>
