@@ -2,20 +2,21 @@
   "lock": false,
   "tasks": {
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
-    "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
-    "manifest": "deno task cli manifest $(pwd)",
     "start": "deno run  --allow-all --env --watch=static/,routes/ dev.ts",
-    "build": "deno run -A ./dev.ts build",
-    "deploy": "deno task build && deno task manifest && deno task preview && deno task update",
-    "deploy:prod": "deno task build && deno task manifest && deno task preview --prod && deno task update",
-    "deploy:prod:force": "deno task build && deno task manifest && deno task preview --prod --force && deno task update",
-    "deploy:prod:force:skip": "deno task build && deno task manifest && deno task preview --prod --force --skip && deno task update",
-    "deploy:prod:skip": "deno task build && deno task manifest && deno task preview --prod --skip && deno task update",
-    "preview": "deno run -A main.ts",
+    "deploy": "deployctl deploy",
     "update": "deno run -A -r https://fresh.deno.dev/update ."
   },
-  "lint": { "rules": { "tags": ["fresh", "recommended"] } },
-  "exclude": ["**/_fresh/*"],
+  "lint": {
+    "rules": {
+      "tags": [
+        "fresh",
+        "recommended"
+      ]
+    }
+  },
+  "exclude": [
+    "**/_fresh/*"
+  ],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "jsonwebtoken": "npm:jsonwebtoken@^9.0.2",
@@ -26,6 +27,17 @@
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "$std/": "https://deno.land/std@0.216.0/"
   },
-  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
-  "nodeModulesDir": true
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
+  "nodeModulesDir": true,
+  "deploy": {
+    "project": "521ef43c-76d9-4a31-b025-5fd945b97f89",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.ts"
+  }
 }
