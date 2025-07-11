@@ -5,7 +5,9 @@ export const Toolbar_Articulo: FunctionalComponent<{ route: string }> = (
   { route },
 ) => {
   const [isHover, hovering] = useState<boolean>(false);
-  const [inroute, set_inroute] = useState<boolean>(route.includes("Articulos"));
+  const [inroute, _set_inroute] = useState<boolean>(
+    route.includes("Articulos"),
+  );
 
   return (
     <div

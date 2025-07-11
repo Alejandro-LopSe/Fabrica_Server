@@ -5,7 +5,7 @@ export const Toolbar_Cliente: FunctionalComponent<{ route: string }> = (
   { route },
 ) => {
   const [isHover, hovering] = useState<boolean>(false);
-  const [inroute, set_inroute] = useState<boolean>(route.includes("Clientes"));
+  const [inroute, _set_inroute] = useState<boolean>(route.includes("Clientes"));
   return (
     <div
       class="relative flex justify-start border-gray-700 w-full "

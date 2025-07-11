@@ -5,7 +5,7 @@ export const Toolbar_Otros: FunctionalComponent<{ route: string }> = (
   { route },
 ) => {
   const [isHover, hovering] = useState<boolean>(false);
-  const [inroute, set_inroute] = useState<boolean>(route.includes("Otros"));
+  const [inroute, _set_inroute] = useState<boolean>(route.includes("Otros"));
 
   return (
     <div
