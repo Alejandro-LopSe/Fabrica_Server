@@ -1,8 +1,12 @@
 import { useState } from "preact/hooks";
 import { FunctionalComponent } from "preact";
 
-export const Toolbar_Pedidos: FunctionalComponent = () => {
+export const Toolbar_Pedidos: FunctionalComponent<{ route: string }> = (
+  { route },
+) => {
   const [isHover, hovering] = useState<boolean>(false);
+
+  const [inroute, set_inroute] = useState<boolean>(route.includes("Pedidos"));
 
   return (
     <div
@@ -10,7 +14,11 @@ export const Toolbar_Pedidos: FunctionalComponent = () => {
       onMouseEnter={() => hovering(true)}
       onMouseLeave={() => hovering(false)}
     >
-      <div class="bg-gray-800 text-white justify-items-startrounded cursor-pointer">
+      <div
+        class={inroute
+          ? "bg-gray-700 text-white justify-items-start rounded cursor-pointer w-full p-2"
+          : "bg-gray-800 text-white justify-items-start rounded cursor-pointer w-full p-2"}
+      >
         Pedidos
       </div>
 

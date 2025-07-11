@@ -1,9 +1,9 @@
 import { FreshContext } from "$fresh/server.ts";
 import jwt from "jsonwebtoken";
-import { User } from ".././types.ts";
+import { MyState } from ".././types.ts";
 export const handler = async (
   req: Request,
-  ctx: FreshContext<Partial<User>>,
+  ctx: FreshContext<MyState>,
 ) => {
   if (ctx.destination !== "route") {
     const res = await ctx.next();
@@ -40,7 +40,11 @@ export const handler = async (
       status: 302,
     });
   }
-  ctx.state = { id_usuario: payload.id_usuario, Nombre: payload.Nombre };
+  ctx.state = {
+    id_usuario: payload.id_usuario,
+    Nombre: payload.Nombre,
+    route: ctx.route,
+  };
 
   const res = await ctx.next();
   return res;
