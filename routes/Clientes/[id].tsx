@@ -1,4 +1,5 @@
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
+import { useEffect } from "preact/hooks";
 import { Base } from "../../components/Detalle/Base.tsx";
 import { Contacto } from "../../components/Detalle/Contacto.tsx";
 import { Direccion } from "../../components/Detalle/Direccion.tsx";
@@ -11,6 +12,7 @@ import {
   BBDD_Empresa,
   MyState,
 } from "../../types.ts";
+import { clientes_filtrados, filtro_clientes } from "../../signals.ts";
 
 export const handler: Handlers<
   {
@@ -80,8 +82,6 @@ export default function Home(
     MyState
   >,
 ) {
-  console.log("Props: ", props.data);
-
   return (
     <div class="flex flex-row justify-start min-h-[calc(100dvh-5rem)] min-w-[calc(100dvw-6rem)]">
       <Base cliente={props.data.cliente}></Base>
