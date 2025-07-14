@@ -14,10 +14,10 @@ import {
 
 export const handler: Handlers<
   {
-    cliente?: BBDD_Cliente;
+    cliente: BBDD_Empresa;
     contacto?: BBDD_Contacto;
     direccion?: BBDD_Direccion;
-    empresa: BBDD_Empresa;
+    empresa?: BBDD_Cliente;
   },
   MyState
 > = {
@@ -27,10 +27,10 @@ export const handler: Handlers<
     ctx: FreshContext<
       MyState,
       {
-        cliente?: BBDD_Cliente;
+        cliente: BBDD_Empresa;
         contacto?: BBDD_Contacto;
         direccion?: BBDD_Direccion;
-        empresa: BBDD_Empresa;
+        empresa?: BBDD_Cliente;
       }
     >,
   ) {
@@ -43,11 +43,10 @@ export const handler: Handlers<
       if (em.length > 0) {
         //@ts-expect-error check always exists
         const empresa: BBDD_Empresa = em[0];
+        console.log(empresa);
 
         const [cli] = await db!.query(
-          `SELECT * FROM fabrica.clientes WHERE id_cliente=${
-            //@ts-expect-error check always exists
-            em.id_cliente ? em.id_cliente : 0} AND Activo=1 `,
+          `SELECT * FROM fabrica.clientes WHERE id_cliente=${empresa.id_cliente} AND Activo=1 `,
         );
 
         const [cont] = await db!.query(
@@ -58,14 +57,13 @@ export const handler: Handlers<
         );
 
         const data = {
-          //@ts-expect-error check always exists
-          cliente: cli.length > 0 ? em[0] : undefined,
+          cliente: empresa,
           //@ts-expect-error check always exists
           contacto: cont.length > 0 ? cont[0] : undefined,
           //@ts-expect-error check always exists
           direccion: dir.length > 0 ? dir[0] : undefined,
-
-          empresa: empresa,
+          //@ts-expect-error check always exists
+          empresa: cli.length > 0 ? cli[0] : undefined,
         };
         return ctx.render(data);
       }
@@ -77,10 +75,10 @@ export const handler: Handlers<
 export default function Home(
   props: PageProps<
     {
-      cliente?: BBDD_Cliente;
+      cliente: BBDD_Empresa;
       contacto?: BBDD_Contacto;
       direccion?: BBDD_Direccion;
-      empresa: BBDD_Empresa;
+      empresa?: BBDD_Cliente;
     },
     MyState
   >,
@@ -89,11 +87,11 @@ export default function Home(
 
   return (
     <div class="flex flex-row justify-start min-h-[calc(100dvh-5rem)] min-w-[calc(100dvw-6rem)]">
-      <Base cliente={props.data.empresa}></Base>
+      <Base cliente={props.data.cliente}></Base>
       <div class="flex flex-col justify-start w-full h-min">
         <Contacto contacto={props.data.contacto}></Contacto>
         <Direccion direccion={props.data.direccion}></Direccion>
-        <Empresa empresa={props.data.cliente}></Empresa>
+        <Empresa empresa={props.data.empresa}></Empresa>
       </div>
     </div>
   );

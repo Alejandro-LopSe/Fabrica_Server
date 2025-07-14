@@ -43,9 +43,11 @@ export default function Home(
       <div class="flex flex-col w-full h-full p-2">
         <label class="font-bold">Clientes</label>
         <div class="flex flex-col w-full h-full items-start p-2  text-black border-gray-800 border-solid rounded-md border-2">
-          <Filtro_Clientes clts={props.data.c}></Filtro_Clientes>
-          <Clientes clts={props.data.c} pag_activa={props.data.pag_activa}>
-          </Clientes>
+          <Filtro_Clientes
+            clts={props.data.c}
+            pag_activa={props.data.pag_activa}
+          >
+          </Filtro_Clientes>
         </div>
       </div>
     </div>

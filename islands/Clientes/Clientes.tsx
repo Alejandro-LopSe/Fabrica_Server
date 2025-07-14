@@ -23,17 +23,21 @@ export const Clientes: FunctionalComponent<
           DNI: filtro_clientes.value?.DNI,
         }),
       });
+      console.log(filtro_clientes.value);
+
       const d = await res.json();
       if (res.ok) {
         setdata(d);
-        console.log(data);
+        console.log("Datos actualizados:", d);
+      } else {
+        console.error("Error al cargar datos:", res.statusText);
       }
-
-      setdata(d);
-      console.log(data);
     };
     fetchData();
-  }, [filtro_clientes]);
+    console.log("effect: ", filtro_clientes.value);
+  }, [filtro_clientes.value]);
+  console.log(filtro_clientes.value);
+
   return (
     <div class="flex flex-col h-full w-full items-start p-2  text-black border-gray-800 border-solid rounded-md border-2">
       {data.map((c: BBDD_Cliente) => {
