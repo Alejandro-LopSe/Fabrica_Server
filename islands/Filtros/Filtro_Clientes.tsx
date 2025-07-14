@@ -46,7 +46,7 @@ export const Filtro_Clientes: FunctionalComponent<
   return (
     <div class="flex flex-col h-full w-full items-start p-2 ">
       <div class="flex flex-row justify-evenly  p-2  border-gray-700 w-full">
-        <div class="flex flex-col  justify-start pl-10 text-black  border-gray-700 w-1/4">
+        <div class="flex flex-col  justify-start pl-10 text-black  border-gray-700 w-3/12">
           Nombre
           <input
             class="flex justify-center h-full w-fit text-black bg-slate-300 border-gray-700 rounded-md"
@@ -56,7 +56,7 @@ export const Filtro_Clientes: FunctionalComponent<
             }}
           />
         </div>
-        <div class="flex flex-col justify-start h-full  pl-10 text-black  border-gray-700 w-1/4">
+        <div class="flex flex-col justify-start h-full  pl-10 text-black  border-gray-700 w-4/12">
           Apellidos
           <input
             class="flex justify-start h-full w-fit text-black bg-slate-300 border-gray-700 rounded-md"
@@ -66,7 +66,7 @@ export const Filtro_Clientes: FunctionalComponent<
             }}
           />
         </div>
-        <div class="flex flex-col justify-start h-full pl-10 text-black  border-gray-700 w-1/4">
+        <div class="flex flex-col justify-start h-full pl-10 text-black  border-gray-700 w-3/12">
           DNI
           <input
             class="flex justify-start h-full w-fit text-black bg-slate-300 border-gray-700 rounded-md"
@@ -76,7 +76,7 @@ export const Filtro_Clientes: FunctionalComponent<
             }}
           />
         </div>
-        <div class="flex flex-col justify-center h-full pr-10 text-black  border-gray-700 w-1/4">
+        <div class="flex flex-col justify-center h-full pr-10 text-black  border-gray-700 w-4/12">
           Fecha
           <input
             class="flex justify-center h-full w-fit  text-black bg-slate-300 border-gray-700 rounded-md"
