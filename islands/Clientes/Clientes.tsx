@@ -1,19 +1,18 @@
 import { FunctionalComponent } from "preact";
 import { BBDD_Cliente } from "../../types.ts";
 import { Cliente } from "./Cliente.tsx";
-import { Signal } from "@preact/signals-core";
-import { clientes_filtrados, filtro_clientes } from "../../signals.ts";
+import { filtro_clientes } from "../../signals.ts";
 import { useEffect, useState } from "preact/hooks";
 
 export const Clientes: FunctionalComponent<
-  { clts: BBDD_Cliente[] }
+  { clts: BBDD_Cliente[]; pag_activa: number }
 > = (
-  { clts },
+  { clts, pag_activa },
 ) => {
   const [data, setdata] = useState<BBDD_Cliente[]>(clts);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/Api/Cliente", {
+      const res = await fetch(`/Api/Cliente?pagina=${pag_activa}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -36,14 +35,22 @@ export const Clientes: FunctionalComponent<
     fetchData();
   }, [filtro_clientes]);
   return (
-    <div class="flex flex-row h-full w-full items-start p-2  text-black border-gray-800 border-solid rounded-md border-2">
+    <div class="flex flex-col h-full w-full items-start p-2  text-black border-gray-800 border-solid rounded-md border-2">
       {data.map((c: BBDD_Cliente) => {
-        console.log("C: ", c);
         return (
           <Cliente c={c}>
           </Cliente>
         );
       })}
+      <div>
+        Pagina:<a
+          href={pag_activa == 0 ? `` : `/Clientes?pagina=${pag_activa - 1}`}
+        >
+          {"<< "}
+        </a>{" "}
+        {pag_activa}
+        <a href={`/Clientes?pagina=${pag_activa + 1}`}>{" >>"}</a>
+      </div>
     </div>
   );
 };

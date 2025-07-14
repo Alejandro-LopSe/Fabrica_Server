@@ -33,7 +33,7 @@
   },
   "nodeModulesDir": "auto",
   "deploy": {
-    "project": "521ef43c-76d9-4a31-b025-5fd945b97f89",
+    "project": "fabrica-lopez",
     "exclude": [
       "**/node_modules"
     ],
