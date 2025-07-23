@@ -18,7 +18,7 @@ export const Filtro_Clientes: FunctionalComponent<
   const [Fecha, setF] = useState<string>("");
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`/Api/Cliente?pagina=${pag_activa}`, {
+      const res = await fetch(`/Api/Cliente/Cliente?pagina=${pag_activa}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

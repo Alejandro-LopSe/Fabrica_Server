@@ -32,7 +32,7 @@ export const Direccion: FunctionalComponent<{ direccion?: BBDD_Direccion }> = (
                 label="Calle:"
                 texto={direccion.direccion}
               />
-              <Lable_texto label="Ciudad:" texto={direccion.ciudad} />
+              <Lable_texto label="Localidad:" texto={direccion.localidad} />
               <Lable_texto label="Provincia:" texto={direccion.provincia} />
               <Lable_texto label="CP:" texto={direccion.codigo_postal} />
               <Lable_notas

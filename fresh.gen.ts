@@ -2,7 +2,10 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $Api_Cliente from "./routes/Api/Cliente.ts";
+import * as $Api_Cliente_Cliente from "./routes/Api/Cliente/Cliente.ts";
+import * as $Api_Empresa_CIFS from "./routes/Api/Empresa/CIFS.ts";
+import * as $Api_Empresa_Empresa from "./routes/Api/Empresa/Empresa.ts";
+import * as $Clientes_Añadir from "./routes/Clientes/Añadir.tsx";
 import * as $Clientes_id_ from "./routes/Clientes/[id].tsx";
 import * as $Clientes_index from "./routes/Clientes/index.tsx";
 import * as $Empresas_id_ from "./routes/Empresas/[id].tsx";
@@ -13,6 +16,7 @@ import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $login from "./routes/login.tsx";
+import * as $Clientes_Anadir_Cliente from "./islands/Clientes/Anadir_Cliente.tsx";
 import * as $Clientes_Cliente from "./islands/Clientes/Cliente.tsx";
 import * as $Clientes_Clientes from "./islands/Clientes/Clientes.tsx";
 import * as $Desplegables_Toolbar_Articulo from "./islands/Desplegables/Toolbar_Articulo.tsx";
@@ -25,7 +29,10 @@ import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
-    "./routes/Api/Cliente.ts": $Api_Cliente,
+    "./routes/Api/Cliente/Cliente.ts": $Api_Cliente_Cliente,
+    "./routes/Api/Empresa/CIFS.ts": $Api_Empresa_CIFS,
+    "./routes/Api/Empresa/Empresa.ts": $Api_Empresa_Empresa,
+    "./routes/Clientes/Añadir.tsx": $Clientes_Añadir,
     "./routes/Clientes/[id].tsx": $Clientes_id_,
     "./routes/Clientes/index.tsx": $Clientes_index,
     "./routes/Empresas/[id].tsx": $Empresas_id_,
@@ -38,6 +45,7 @@ const manifest = {
     "./routes/login.tsx": $login,
   },
   islands: {
+    "./islands/Clientes/Anadir_Cliente.tsx": $Clientes_Anadir_Cliente,
     "./islands/Clientes/Cliente.tsx": $Clientes_Cliente,
     "./islands/Clientes/Clientes.tsx": $Clientes_Clientes,
     "./islands/Desplegables/Toolbar_Articulo.tsx":

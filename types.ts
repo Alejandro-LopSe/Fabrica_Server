@@ -39,7 +39,7 @@ export type BBDD_Direccion = {
   tipo_via: string;
   direccion: string;
   codigo_postal: string;
-  ciudad: string;
+  localidad: string;
   municipio: string;
   provincia: string;
   activo: boolean;

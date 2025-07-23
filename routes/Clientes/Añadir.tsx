@@ -4,6 +4,7 @@ import { Contacto } from "../../components/Detalle/Contacto.tsx";
 import { Direccion } from "../../components/Detalle/Direccion.tsx";
 import { Empresa } from "../../components/Detalle/Empresa.tsx";
 import { db } from "../../database_conection/SQLConnection.ts";
+import { Anadir_Cliente } from "../../islands/Clientes/Anadir_Cliente.tsx";
 import {
   BBDD_Cliente,
   BBDD_Contacto,
@@ -12,26 +13,12 @@ import {
   MyState,
 } from "../../types.ts";
 
-export const handler: Handlers<
-  {
-    cliente: BBDD_Cliente;
-    contacto?: BBDD_Contacto;
-    direccion?: BBDD_Direccion;
-    empresa?: BBDD_Empresa;
-  },
-  MyState
-> = {
+export const handler: Handlers<unknown, MyState> = {
   //@ts-expect-error ctx.params is always defined
-  async GET(
-    _req: Request,
+  async POST(
+    req: Request,
     ctx: FreshContext<
-      MyState,
-      {
-        cliente: BBDD_Cliente;
-        contacto?: BBDD_Contacto;
-        direccion?: BBDD_Direccion;
-        empresa?: BBDD_Empresa;
-      }
+      MyState
     >,
   ) {
     const id = ctx.params.id;
@@ -71,23 +58,13 @@ export const handler: Handlers<
 
 export default function Home(
   props: PageProps<
-    {
-      cliente: BBDD_Cliente;
-      contacto?: BBDD_Contacto;
-      direccion?: BBDD_Direccion;
-      empresa?: BBDD_Empresa;
-    },
+    unknown,
     MyState
   >,
 ) {
   return (
-    <div class="flex flex-row justify-start min-h-[calc(100dvh-5rem)] min-w-[calc(100dvw-6rem)]">
-      <Base cliente={props.data.cliente}></Base>
-      <div class="flex flex-col justify-start w-full h-min">
-        <Contacto contacto={props.data.contacto}></Contacto>
-        <Direccion direccion={props.data.direccion}></Direccion>
-        <Empresa empresa={props.data.empresa}></Empresa>
-      </div>
+    <div class="flex flex-row justify-center min-h-[calc(100dvh-5rem)] min-w-[calc(100dvw-6rem)]">
+      <Anadir_Cliente />
     </div>
   );
 }
