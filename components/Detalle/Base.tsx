@@ -2,6 +2,7 @@ import { FunctionalComponent } from "preact";
 import { BBDD_Cliente, BBDD_Empresa } from "../../types.ts";
 import { Lable_texto } from "../Generales/Lable_texto.tsx";
 import { Lable_notas } from "../Generales/Lable_notas.tsx";
+import { Save } from "../../islands/buttons/Save.tsx";
 
 export const Base: FunctionalComponent<
   { cliente: BBDD_Cliente | BBDD_Empresa }
@@ -45,6 +46,9 @@ export const Base: FunctionalComponent<
                 label="OBSERVACIONES:"
                 texto={cliente.OBSERVACIONES}
               />
+              <a href={`/Clientes/Modificar/${cliente.id_cliente}`}>
+                Modificar
+              </a>
             </div>
           </div>
         )}

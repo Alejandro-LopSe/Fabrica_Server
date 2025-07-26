@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
 import { BBDD_Cliente } from "../../types.ts";
-import { formatearFechaHora } from "../../Func.ts";
+import { Parse_Date_to_Visual } from "../../Func.ts";
 
 export const Cliente: FunctionalComponent<{ c: BBDD_Cliente }> = (
   { c },
@@ -22,7 +22,7 @@ export const Cliente: FunctionalComponent<{ c: BBDD_Cliente }> = (
         {c.DNI}
       </div>
       <div class="flex flex-row justify-start text-black  border-gray-700 w-3/12">
-        {formatearFechaHora(c.Fecha_mod)}
+        {Parse_Date_to_Visual(c.Fecha_mod)}
       </div>
     </a>
   );

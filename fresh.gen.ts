@@ -5,7 +5,9 @@
 import * as $Api_Cliente_Cliente from "./routes/Api/Cliente/Cliente.ts";
 import * as $Api_Empresa_CIFS from "./routes/Api/Empresa/CIFS.ts";
 import * as $Api_Empresa_Empresa from "./routes/Api/Empresa/Empresa.ts";
+import * as $Api_Updates from "./routes/Api/Updates.ts";
 import * as $Clientes_Añadir from "./routes/Clientes/Añadir.tsx";
+import * as $Clientes_Modificar_id_ from "./routes/Clientes/Modificar/[id].tsx";
 import * as $Clientes_id_ from "./routes/Clientes/[id].tsx";
 import * as $Clientes_index from "./routes/Clientes/index.tsx";
 import * as $Empresas_id_ from "./routes/Empresas/[id].tsx";
@@ -23,8 +25,13 @@ import * as $Desplegables_Toolbar_Articulo from "./islands/Desplegables/Toolbar_
 import * as $Desplegables_Toolbar_Cliente from "./islands/Desplegables/Toolbar_Cliente.tsx";
 import * as $Desplegables_Toolbar_Otros from "./islands/Desplegables/Toolbar_Otros.tsx";
 import * as $Desplegables_Toolbar_Pedidos from "./islands/Desplegables/Toolbar_Pedidos.tsx";
+import * as $Detalles_Base from "./islands/Detalles/Base.tsx";
+import * as $Detalles_Contacto from "./islands/Detalles/Contacto.tsx";
+import * as $Detalles_Direccion from "./islands/Detalles/Direccion.tsx";
+import * as $Detalles_Empresa from "./islands/Detalles/Empresa.tsx";
 import * as $Filtros_Filtro_Clientes from "./islands/Filtros/Filtro_Clientes.tsx";
 import * as $buttons_Logout from "./islands/buttons/Logout.tsx";
+import * as $buttons_Save from "./islands/buttons/Save.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -32,7 +39,9 @@ const manifest = {
     "./routes/Api/Cliente/Cliente.ts": $Api_Cliente_Cliente,
     "./routes/Api/Empresa/CIFS.ts": $Api_Empresa_CIFS,
     "./routes/Api/Empresa/Empresa.ts": $Api_Empresa_Empresa,
+    "./routes/Api/Updates.ts": $Api_Updates,
     "./routes/Clientes/Añadir.tsx": $Clientes_Añadir,
+    "./routes/Clientes/Modificar/[id].tsx": $Clientes_Modificar_id_,
     "./routes/Clientes/[id].tsx": $Clientes_id_,
     "./routes/Clientes/index.tsx": $Clientes_index,
     "./routes/Empresas/[id].tsx": $Empresas_id_,
@@ -53,8 +62,13 @@ const manifest = {
     "./islands/Desplegables/Toolbar_Cliente.tsx": $Desplegables_Toolbar_Cliente,
     "./islands/Desplegables/Toolbar_Otros.tsx": $Desplegables_Toolbar_Otros,
     "./islands/Desplegables/Toolbar_Pedidos.tsx": $Desplegables_Toolbar_Pedidos,
+    "./islands/Detalles/Base.tsx": $Detalles_Base,
+    "./islands/Detalles/Contacto.tsx": $Detalles_Contacto,
+    "./islands/Detalles/Direccion.tsx": $Detalles_Direccion,
+    "./islands/Detalles/Empresa.tsx": $Detalles_Empresa,
     "./islands/Filtros/Filtro_Clientes.tsx": $Filtros_Filtro_Clientes,
     "./islands/buttons/Logout.tsx": $buttons_Logout,
+    "./islands/buttons/Save.tsx": $buttons_Save,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

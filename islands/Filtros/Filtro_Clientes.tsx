@@ -5,6 +5,7 @@ import { clientes_filtrados, filtro_clientes } from "../../signals.ts";
 import { Clientes } from "../Clientes/Clientes.tsx";
 import { BBDD_Cliente } from "../../types.ts";
 import { Cliente } from "../Clientes/Cliente.tsx";
+import { Parse_Visual_to_Date } from "../../Func.ts";
 
 export const Filtro_Clientes: FunctionalComponent<
   { clts: BBDD_Cliente[]; pag_activa: number }
@@ -16,6 +17,7 @@ export const Filtro_Clientes: FunctionalComponent<
   const [Apellidos, setA] = useState<string>("");
   const [DNI, setD] = useState<string>("");
   const [Fecha, setF] = useState<string>("");
+  const f2 = Parse_Visual_to_Date(Fecha);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`/Api/Cliente/Cliente?pagina=${pag_activa}`, {
@@ -27,10 +29,9 @@ export const Filtro_Clientes: FunctionalComponent<
           Nombre: Nombre,
           Apellidos: Apellidos,
           DNI: DNI,
-          Fecha: Fecha,
+          Fecha_mod: f2,
         }),
       });
-      console.log(filtro_clientes.value);
 
       const d = await res.json();
       if (res.ok) {
@@ -41,7 +42,7 @@ export const Filtro_Clientes: FunctionalComponent<
       }
     };
     fetchData();
-    console.log("effect: ", filtro_clientes.value);
+    console.log("effect: ", [Nombre, Apellidos, DNI, Fecha]);
   }, [Nombre, Apellidos, DNI, Fecha]);
   return (
     <div class="flex flex-col h-full w-full items-start p-2 ">
@@ -80,10 +81,10 @@ export const Filtro_Clientes: FunctionalComponent<
           Fecha
           <input
             class="flex justify-center h-full w-fit  text-black bg-slate-300 border-gray-700 rounded-md"
-            value={Fecha}
             onInput={(e) => {
               setF(e.currentTarget.value);
             }}
+            value={Fecha}
           />
         </div>
       </div>
