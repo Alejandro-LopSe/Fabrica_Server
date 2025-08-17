@@ -1,34 +1,49 @@
+import { timeStamp } from "node:console";
 import mysql from "npm:mysql2@^2.3.3/promise";
 
 const pools = {
-  local: mysql.createPool({
+  /*local: mysql.createConnection({
     host: "127.0.0.1",
     port: 8001,
     user: "root",
     password: "-Fabrica-1974",
     database: "fabrica",
     waitForConnections: true,
-    connectionLimit: 5,
+    connectionLimit: 5000000,
     queueLimit: 0,
-  }),
-  remote: mysql.createPool({
+  }),*/
+  remote: mysql.createConnection({
     host: "92.191.5.86",
     port: 10001,
     user: "Admin",
     password: "-Fabrica-1974",
     database: "fabrica",
     waitForConnections: true,
-    connectionLimit: 10,
+    connectionLimit: 5000000,
     queueLimit: 0,
   }),
 };
 
-export const MYSQL = (dbtouse: "local" | "remote" = "remote") => {
-  const pool = pools[dbtouse];
-  console.log(
-    `\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< BBDD - Pool creado para ${dbtouse} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n`,
-  );
-  return pool;
-};
+let dbb: mysql.Connection | undefined = undefined;
 
-export const db = MYSQL(); // usa remote por defecto
+export async function createConnection(usuario?: string, contraseña?: string) {
+  // Si ya existe una conexión, ciérrala
+  if (!dbb) {
+    // Crea nueva conexión con el nuevo usuario
+    dbb = await pools.remote;
+    const date = new Date();
+    const timestamp =
+      `🔐 Nueva conexión establecida como Usuario: ${usuario},Fecha: ${date.toLocaleDateString()}, Hora: ${date.toLocaleTimeString()}`;
+
+    await dbb.query(
+      `insert into general_log (descripcion) values('${timestamp}')`,
+    );
+    return dbb;
+  }
+
+  return dbb;
+}
+export function db() {
+  const d = createConnection();
+  return d;
+}

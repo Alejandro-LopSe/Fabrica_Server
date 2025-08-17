@@ -6,7 +6,7 @@ export const Toolbar_Articulo: FunctionalComponent<{ route: string }> = (
 ) => {
   const [isHover, hovering] = useState<boolean>(false);
   const [inroute, _set_inroute] = useState<boolean>(
-    route.includes("Articulos"),
+    route == undefined ? false : route.includes("Articulos"),
   );
 
   return (
@@ -25,8 +25,8 @@ export const Toolbar_Articulo: FunctionalComponent<{ route: string }> = (
 
       {isHover && (
         <div class="absolute left-full top-0 ml-0 flex flex-col bg-gray-700 p-2 rounded shadow">
-          <div>Ver</div>
-          <div>Añadir</div>
+          <a href="/Articulos">Ver</a>
+          <a href="/Articulos/Añadir">Añadir</a>
         </div>
       )}
     </div>

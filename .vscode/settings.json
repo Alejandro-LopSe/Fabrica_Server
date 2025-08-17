@@ -5,7 +5,7 @@
 
   "typescript.validate.enable": false,
   "[typescriptreact]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
     "editor.defaultFormatter": "denoland.vscode-deno"

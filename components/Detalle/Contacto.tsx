@@ -19,13 +19,6 @@ export const Contacto: FunctionalComponent<{ contacto?: BBDD_Contacto }> = (
               class="flex flex-row w-full h-fit items-center justify-around p-1 text-black border-gray-800 border-solid rounded-md border-2 mr-2"
               id={`cliente-${contacto.id_contacto}`}
             >
-              <div class="flex flex-row justify-start p-2  space-x-2 text-black ">
-                <input
-                  type="checkbox"
-                  class="flex self-start mt-2 px-5 text-black "
-                  checked={contacto.activo}
-                />
-              </div>
               <Lable_texto_first
                 activo={contacto.activo}
                 label="Telefono 1:"

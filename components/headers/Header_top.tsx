@@ -8,7 +8,11 @@ export const Header_top: FunctionalComponent<{ state: Partial<User> }> = (
   return (
     <div class="flex min-w-screen h-16 bg-gray-800 text-white items-center justify-between px-4">
       <div class=" w-3/4 flex items-center gap-4">
-        <img src="/userimg.png" class=" size-10" alt="" />
+        <img
+          src={`/${state.Nombre?.toLowerCase()}.png`}
+          class=" rounded-full size-10"
+          alt=""
+        />
         <p>{state.Nombre}</p>
       </div>
       <form class="formm" action="/login">

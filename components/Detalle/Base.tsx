@@ -46,7 +46,10 @@ export const Base: FunctionalComponent<
                 label="OBSERVACIONES:"
                 texto={cliente.OBSERVACIONES}
               />
-              <a href={`/Clientes/Modificar/${cliente.id_cliente}`}>
+              <a
+                class="flex text-gray-50 bg-slate-700 px-2 border-gray-800 border-solid rounded-md border-2"
+                href={`/Clientes/Modificar/${cliente.id_cliente}`}
+              >
                 Modificar
               </a>
             </div>

@@ -37,13 +37,6 @@ export const Empresa: FunctionalComponent<
                 id={`empresa-${empresa.id_direccion}`}
                 href={`/Empresas/${empresa!.id_empresa}`}
               >
-                <div class="flex flex-row justify-start p-2  space-x-2 text-black ">
-                  <input
-                    type="checkbox"
-                    class="flex self-start mt-2 px-5 text-black "
-                    checked={empresa.activo}
-                  />
-                </div>
                 <Lable_texto
                   label="Razon Social:"
                   texto={empresa.Razon_Social}
@@ -86,13 +79,6 @@ export const Empresa: FunctionalComponent<
                 id={`empresa-${empresa.id_cliente}`}
                 href={`/Clientes/${empresa!.id_cliente}`}
               >
-                <div class="flex flex-row justify-start p-2  space-x-2 text-black ">
-                  <input
-                    type="checkbox"
-                    class="flex self-start mt-2 px-5 text-black "
-                    checked={empresa.Activo}
-                  />
-                </div>
                 <Lable_texto label="Nombre:" texto={empresa.Nombre} />
                 <Lable_texto label="Apellidos:" texto={empresa.Apellidos} />
                 <Lable_texto label="DNI:" texto={empresa.DNI} />

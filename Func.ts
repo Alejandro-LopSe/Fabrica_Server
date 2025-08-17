@@ -11,7 +11,6 @@ export function Parse_Date_to_Visual(fechaISO: string) {
 export function Parse_Visual_to_Date(fecha: string) {
   let busqueda: string = "";
   const dia: string = fecha.substring(0, 2);
-  console.log("DIA:", dia, "END");
 
   if (dia && dia.length > 1) {
     busqueda = `${dia} `;

@@ -47,7 +47,8 @@ export const Filtro_Clientes: FunctionalComponent<
   return (
     <div class="flex flex-col h-full w-full items-start p-2 ">
       <div class="flex flex-row justify-evenly  p-2  border-gray-700 w-full">
-        <div class="flex flex-col  justify-start pl-10 text-black  border-gray-700 w-3/12">
+        <img src="filter.png" class="w-5 h-6" />
+        <div class="flex flex-col  justify-start pl-5 text-black  border-gray-700 w-3/12">
           Nombre
           <input
             class="flex justify-center h-full w-fit text-black bg-slate-300 border-gray-700 rounded-md"
@@ -57,7 +58,8 @@ export const Filtro_Clientes: FunctionalComponent<
             }}
           />
         </div>
-        <div class="flex flex-col justify-start h-full  pl-10 text-black  border-gray-700 w-4/12">
+        <img src="filter.png" class="w-5 h-6" />
+        <div class="flex flex-col justify-start h-full  pl-5 text-black  border-gray-700 w-4/12">
           Apellidos
           <input
             class="flex justify-start h-full w-fit text-black bg-slate-300 border-gray-700 rounded-md"
@@ -67,7 +69,8 @@ export const Filtro_Clientes: FunctionalComponent<
             }}
           />
         </div>
-        <div class="flex flex-col justify-start h-full pl-10 text-black  border-gray-700 w-3/12">
+        <img src="filter.png" class="w-5 h-6" />
+        <div class="flex flex-col justify-start h-full pl-5 text-black  border-gray-700 w-3/12">
           DNI
           <input
             class="flex justify-start h-full w-fit text-black bg-slate-300 border-gray-700 rounded-md"
@@ -77,8 +80,9 @@ export const Filtro_Clientes: FunctionalComponent<
             }}
           />
         </div>
-        <div class="flex flex-col justify-center h-full pr-10 text-black  border-gray-700 w-4/12">
-          Fecha
+        <img src="filter.png" class="w-5 h-6" />
+        <div class="flex flex-col justify-center h-full  pl-5 pr-5 text-black  border-gray-700 w-4/12">
+          Ultima actualización
           <input
             class="flex justify-center h-full w-fit  text-black bg-slate-300 border-gray-700 rounded-md"
             onInput={(e) => {
@@ -95,14 +99,21 @@ export const Filtro_Clientes: FunctionalComponent<
           </Cliente>
         );
       })}
-      <div>
-        Pagina:<a
+      <div class="flex flex-row justify-around pl-2 w-fit">
+        Pagina:
+        <a
+          class="flex flex-row justify-start  pl-2 pr-2"
           href={pag_activa == 0 ? `` : `/Clientes?pagina=${pag_activa - 1}`}
         >
-          {"<< "}
-        </a>{" "}
+          <img src="arrow-left-circle.png" class="w-6 h-6" />
+        </a>
         {pag_activa}
-        <a href={`/Clientes?pagina=${pag_activa + 1}`}>{" >>"}</a>
+        <a
+          href={`/Clientes?pagina=${pag_activa + 1}`}
+          class="flex flex-row justify-start pl-2"
+        >
+          <img src="arrow-right-circle.png" class="w-6 h-6" />
+        </a>
       </div>
     </div>
   );

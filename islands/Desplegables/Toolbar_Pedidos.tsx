@@ -6,7 +6,9 @@ export const Toolbar_Pedidos: FunctionalComponent<{ route: string }> = (
 ) => {
   const [isHover, hovering] = useState<boolean>(false);
 
-  const [inroute, _set_inroute] = useState<boolean>(route.includes("Pedidos"));
+  const [inroute, _set_inroute] = useState<boolean>(
+    route == undefined ? false : route.includes("Pedidos"),
+  );
 
   return (
     <div

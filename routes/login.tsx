@@ -1,6 +1,6 @@
 import { FreshContext, Handlers } from "$fresh/server.ts";
 import jwt from "jsonwebtoken";
-import { db } from "../database_conection/SQLConnection.ts";
+import { createConnection, db } from "../database_conection/SQLConnection.ts";
 import { Login } from "../components/login/Login.tsx";
 
 export const handler: Handlers = {
@@ -10,10 +10,16 @@ export const handler: Handlers = {
       const usuario = form.get("usuario");
       const contrasena = form.get("contrasena");
       const keygen = await Deno.env.get("KEYGEN");
-
-      const [check] = await db!.query(
-        `SELECT * FROM fabrica.usuarios WHERE Nombre='${usuario}' AND Password=${contrasena}`,
+      const dbUser = await createConnection(
+        usuario as string,
+        contrasena as string,
       );
+      console.log("conectado");
+
+      const [check] = await dbUser.query(
+        `SELECT * FROM fabrica.usuarios WHERE Nombre='${usuario}' AND Password='${contrasena}'`,
+      );
+      console.log(check);
 
       //@ts-expect-error check always exists
       const user: User = check[0];

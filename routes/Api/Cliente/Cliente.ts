@@ -4,18 +4,19 @@ import {
   BBDD_Contacto,
   BBDD_Direccion,
   BBDD_Empresa,
+  MyState,
 } from "../../../types.ts";
 import { db } from "../../../database_conection/SQLConnection.ts";
 
-export const handler: Handlers = {
-  PUT: async (req: Request, _ctx: FreshContext) => {
+export const handler: Handlers<unknown, MyState> = {
+  PUT: async (req: Request, _ctx: FreshContext<MyState, unknown>) => {
     const body: Partial<BBDD_Cliente> = await req.json();
     console.log(body);
 
     const url = new URL(req.url);
     const pag_activa: string = url.searchParams.get("pagina") || "0";
 
-    const [exist] = await db!.query(
+    const [exist] = await (await db()!).query(
       `SELECT * FROM clientes WHERE (Nombre like '%${body.Nombre || ""}%' 
             AND Apellidos like '%${body.Apellidos || ""}%'
             AND DNI like '%${body.DNI || ""}%' AND Fecha_mod like '%${
@@ -28,8 +29,8 @@ export const handler: Handlers = {
   },
 
   //Añadir cliente, con dir, cont y emp opcional
-  async POST(req: Request, _ctx: FreshContext) {
-    console.log("POST 1 lgo");
+  async POST(req: Request, _ctx: FreshContext<MyState, unknown>) {
+    console.log("POST 1 lgo", _ctx.state.Nombre);
     try {
       const body: [
         Partial<BBDD_Cliente>,
@@ -40,11 +41,11 @@ export const handler: Handlers = {
         boolean,
       ] = await req.json();
       //clinete----------------------------------------------------------------------------
-      await db!.query(
-        `INSERT INTO clientes (Nombre, Apellidos, DNI,OBSERVACIONES, Activo)
+      await (await db()!).query(
+        `INSERT INTO clientes (Nombre, Apellidos, DNI,OBSERVACIONES,usuario_actualizador, Activo)
         SELECT '${body[0].Nombre}', '${body[0].Apellidos}', '${body[0].DNI}','${
           body[0].OBSERVACIONES
-        }', 1
+        }','${_ctx.state.Nombre}', 1
         FROM DUAL
         WHERE NOT EXISTS (
           SELECT 1 FROM clientes WHERE Nombre = '${
@@ -52,7 +53,7 @@ export const handler: Handlers = {
         }' and Apellidos =  '${body[0].Apellidos}' and DNI = '${body[0].DNI}'
         );`,
       );
-      const [cli] = await db!.query(`
+      const [cli] = await (await db()!)!.query(`
         SELECT * FROM clientes
         WHERE  Nombre = '${body[0].Nombre}' and Apellidos =  '${
         body[0].Apellidos
@@ -66,9 +67,9 @@ export const handler: Handlers = {
         console.log("POST 2 lgo");
         if (body[4]) {
           // NUEVA EMPRESA
-          await db!.query(
-            `INSERT INTO empresa (Razon_Social, CIF, OBSERVACIONES, id_cliente, Activo)
-            SELECT ?, ?, ?, ?, 1
+          await (await db()!)!.query(
+            `INSERT INTO empresa (Razon_Social, CIF, OBSERVACIONES, id_cliente,usuario_actualizador, Activo)
+            SELECT ?, ?, ?, ?,?, 1
             FROM DUAL
             WHERE NOT EXISTS (
               SELECT 1 FROM empresa WHERE Razon_Social = ? AND CIF = ? 
@@ -78,22 +79,23 @@ export const handler: Handlers = {
               body[3].CIF,
               body[3].OBSERVACIONES || "-",
               new_cliente.id_cliente,
+              _ctx.state.Nombre,
               1,
               body[3].Razon_Social,
               body[3].CIF,
             ],
           );
 
-          const [emp] = await db!.query(
+          const [emp] = await (await db()!).query(
             `SELECT * FROM empresa WHERE Razon_Social = ? AND CIF = ?`,
             [body[3].Razon_Social, body[3].CIF],
           );
           const new_empresa: BBDD_Empresa = (emp as any)[0];
 
           // DIRECCIÓN
-          await db!.query(
+          await (await db()!).query(
             `INSERT INTO direccion (id_empresa, direccion,codigo_postal, localidad, municipio, provincia, OBSERVACIONES, Activo)
-            VALUES (?, ?, ?, ?, ?, ?,?, 1)`,
+            VALUES (?, ?, ?, ?, ?, ?,?,?, 1)`,
             [
               new_empresa.id_empresa,
               body[1].direccion,
@@ -102,29 +104,32 @@ export const handler: Handlers = {
               body[1].municipio,
               body[1].provincia,
               body[1].OBSERVACIONES || "-",
+              _ctx.state.Nombre,
               1,
             ],
           );
 
           // CONTACTO
-          await db!.query(
-            `INSERT INTO contacto (id_empresa, Telefono, Fijo, Email, OBSERVACIONES, Activo)
-            VALUES (?, ?, ?, ?, ?, 1)`,
+          await (await db()!).query(
+            `INSERT INTO contacto (id_empresa, Telefono, Fijo, Email, OBSERVACIONES,usuario_actualizador, Activo)
+            VALUES (?, ?, ?, ?, ?,? 1)`,
             [
               new_empresa.id_empresa,
               body[2].Telefono,
               body[2].Fijo,
               body[2].Email,
               body[2].OBSERVACIONES || "-",
+              _ctx.state.Nombre,
               1,
             ],
           );
         } else {
           // EMPRESA EXISTENTE → actualizar `id_cliente`
-          await db!.query(
-            `UPDATE empresa SET id_cliente = ? WHERE Razon_Social = ? AND CIF = ?`,
+          await (await db()!).query(
+            `UPDATE empresa SET id_cliente = ?, usuario_actualizador=? WHERE Razon_Social = ? AND CIF = ?`,
             [
               new_cliente.id_cliente,
+              _ctx.state.Nombre,
               body[3].Razon_Social,
               body[3].CIF,
             ],
@@ -133,10 +138,10 @@ export const handler: Handlers = {
       }
 
       //direccion----------------------------------------------------------------------------
-      const [dir] = await db!.query(
+      const [dir] = await (await db()!).query(
         `INSERT INTO direccion 
-        (id_cliente, direccion, localidad,codigo_postal, municipio, provincia, OBSERVACIONES, Activo)
-        VALUES (? ,   ?,          ?,          ?,        ?,        ?,              ?,?)`,
+        (id_cliente, direccion, localidad,codigo_postal, municipio, provincia, OBSERVACIONES,usuario_actualizador, Activo)
+        VALUES (? ,   ?,          ?,          ?,        ?,        ?,              ?,?,1)`,
         [
           new_cliente.id_cliente,
           body[1].direccion,
@@ -145,22 +150,24 @@ export const handler: Handlers = {
           body[1].municipio,
           body[1].provincia,
           body[1].OBSERVACIONES == undefined ? "-" : body[1].OBSERVACIONES,
+          _ctx.state.Nombre,
           1,
         ],
       );
       console.log(dir);
 
       //contacto----------------------------------------------------------------------------
-      const [cont] = await db!.query(
+      const [cont] = await (await db()!).query(
         `INSERT INTO contacto 
-        (id_cliente, Telefono, Fijo, Email, OBSERVACIONES, Activo)
-         VALUES (?, ?, ?, ?, ?, ?)`,
+        (id_cliente, Telefono, Fijo, Email, OBSERVACIONES,usuario_actualizador, Activo)
+         VALUES (?, ?, ?, ?, ?, ?,?,1)`,
         [
           new_cliente.id_cliente,
           body[2].Telefono,
           body[2].Fijo,
           body[2].Email,
           body[2].OBSERVACIONES || "-",
+          _ctx.state.Nombre,
           1,
         ],
       );

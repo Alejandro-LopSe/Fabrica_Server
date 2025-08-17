@@ -19,7 +19,7 @@ export const handler: Handlers<
   ) {
     const url = new URL(_req.url);
     const pag_activa: string = url.searchParams.get("pagina") || "0";
-    const [cli] = await db!.query(
+    const [cli] = await (await db()!).query(
       `SELECT * FROM fabrica.clientes WHERE Activo=1 LIMIT 50 OFFSET ${
         parseInt(pag_activa!) * 50
       }`,

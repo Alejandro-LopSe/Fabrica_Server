@@ -2,10 +2,14 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $Api_Articulo_Articulo from "./routes/Api/Articulo/Articulo.ts";
 import * as $Api_Cliente_Cliente from "./routes/Api/Cliente/Cliente.ts";
 import * as $Api_Empresa_CIFS from "./routes/Api/Empresa/CIFS.ts";
 import * as $Api_Empresa_Empresa from "./routes/Api/Empresa/Empresa.ts";
 import * as $Api_Updates from "./routes/Api/Updates.ts";
+import * as $Articulos_Añadir from "./routes/Articulos/Añadir.tsx";
+import * as $Articulos_Modificar_id_ from "./routes/Articulos/Modificar/[id].tsx";
+import * as $Articulos_index from "./routes/Articulos/index.tsx";
 import * as $Clientes_Añadir from "./routes/Clientes/Añadir.tsx";
 import * as $Clientes_Modificar_id_ from "./routes/Clientes/Modificar/[id].tsx";
 import * as $Clientes_id_ from "./routes/Clientes/[id].tsx";
@@ -18,6 +22,8 @@ import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.ts";
 import * as $login from "./routes/login.tsx";
+import * as $Articulos_Articulo from "./islands/Articulos/Articulo.tsx";
+import * as $Articulos_Articulos from "./islands/Articulos/Articulos.tsx";
 import * as $Clientes_Anadir_Cliente from "./islands/Clientes/Anadir_Cliente.tsx";
 import * as $Clientes_Cliente from "./islands/Clientes/Cliente.tsx";
 import * as $Clientes_Clientes from "./islands/Clientes/Clientes.tsx";
@@ -29,17 +35,23 @@ import * as $Detalles_Base from "./islands/Detalles/Base.tsx";
 import * as $Detalles_Contacto from "./islands/Detalles/Contacto.tsx";
 import * as $Detalles_Direccion from "./islands/Detalles/Direccion.tsx";
 import * as $Detalles_Empresa from "./islands/Detalles/Empresa.tsx";
+import * as $Filtros_Filto_Articulos from "./islands/Filtros/Filto_Articulos.tsx";
 import * as $Filtros_Filtro_Clientes from "./islands/Filtros/Filtro_Clientes.tsx";
 import * as $buttons_Logout from "./islands/buttons/Logout.tsx";
 import * as $buttons_Save from "./islands/buttons/Save.tsx";
+import * as $buttons_SaveArticulo from "./islands/buttons/SaveArticulo.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
+    "./routes/Api/Articulo/Articulo.ts": $Api_Articulo_Articulo,
     "./routes/Api/Cliente/Cliente.ts": $Api_Cliente_Cliente,
     "./routes/Api/Empresa/CIFS.ts": $Api_Empresa_CIFS,
     "./routes/Api/Empresa/Empresa.ts": $Api_Empresa_Empresa,
     "./routes/Api/Updates.ts": $Api_Updates,
+    "./routes/Articulos/Añadir.tsx": $Articulos_Añadir,
+    "./routes/Articulos/Modificar/[id].tsx": $Articulos_Modificar_id_,
+    "./routes/Articulos/index.tsx": $Articulos_index,
     "./routes/Clientes/Añadir.tsx": $Clientes_Añadir,
     "./routes/Clientes/Modificar/[id].tsx": $Clientes_Modificar_id_,
     "./routes/Clientes/[id].tsx": $Clientes_id_,
@@ -54,6 +66,8 @@ const manifest = {
     "./routes/login.tsx": $login,
   },
   islands: {
+    "./islands/Articulos/Articulo.tsx": $Articulos_Articulo,
+    "./islands/Articulos/Articulos.tsx": $Articulos_Articulos,
     "./islands/Clientes/Anadir_Cliente.tsx": $Clientes_Anadir_Cliente,
     "./islands/Clientes/Cliente.tsx": $Clientes_Cliente,
     "./islands/Clientes/Clientes.tsx": $Clientes_Clientes,
@@ -66,9 +80,11 @@ const manifest = {
     "./islands/Detalles/Contacto.tsx": $Detalles_Contacto,
     "./islands/Detalles/Direccion.tsx": $Detalles_Direccion,
     "./islands/Detalles/Empresa.tsx": $Detalles_Empresa,
+    "./islands/Filtros/Filto_Articulos.tsx": $Filtros_Filto_Articulos,
     "./islands/Filtros/Filtro_Clientes.tsx": $Filtros_Filtro_Clientes,
     "./islands/buttons/Logout.tsx": $buttons_Logout,
     "./islands/buttons/Save.tsx": $buttons_Save,
+    "./islands/buttons/SaveArticulo.tsx": $buttons_SaveArticulo,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

@@ -55,3 +55,41 @@ export type BBDD_Empresa = {
   activo: boolean;
   OBSERVACIONES: string;
 };
+
+export type BBDD_Articulo = {
+  iloc: "Articulo";
+  id_articulo: number;
+  nombre: string;
+  tamano: BBDD_Tamano;
+  tipo_aceite: BBDD_Aceite;
+  envase: BBDD_Envase;
+  cantidad: number;
+  precio: number;
+  Tipo_IVA: BBDD_IVA;
+  OBSERVACIONES: string;
+};
+export type BBDD_IVA = {
+  iloc: "IVA";
+  id: number;
+  tipo: number;
+  actualizado: string;
+  usuario_actualizador: string;
+};
+export type BBDD_Aceite = {
+  iloc: "Aceite";
+  id: number;
+  tipo: string;
+  OBSERVACIONES: string;
+};
+export type BBDD_Envase = {
+  iloc: "Envase";
+  id: number;
+  tipo: string;
+  OBSERVACIONES: string;
+};
+export type BBDD_Tamano = {
+  iloc: "Tamano";
+  id: number;
+  tipo: string;
+  OBSERVACIONES: string;
+};

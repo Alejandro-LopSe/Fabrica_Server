@@ -36,7 +36,7 @@ export const handler: Handlers<
   ) {
     const id = ctx.params.id;
     if (id) {
-      const [em] = await db!.query(
+      const [em] = await (await db()!).query(
         `SELECT * FROM fabrica.empresa WHERE id_empresa=${id} AND Activo=1 `,
       );
       //@ts-expect-error check always exists
@@ -45,14 +45,14 @@ export const handler: Handlers<
         const empresa: BBDD_Empresa = em[0];
         console.log(empresa);
 
-        const [cli] = await db!.query(
+        const [cli] = await (await db()!).query(
           `SELECT * FROM fabrica.clientes WHERE id_cliente=${empresa.id_cliente} AND Activo=1 `,
         );
 
-        const [cont] = await db!.query(
+        const [cont] = await (await db()!).query(
           `SELECT * FROM fabrica.contacto WHERE id_empresa=${id} `,
         );
-        const [dir] = await db!.query(
+        const [dir] = await (await db()!).query(
           `SELECT * FROM fabrica.direccion WHERE id_empresa=${id} `,
         );
 

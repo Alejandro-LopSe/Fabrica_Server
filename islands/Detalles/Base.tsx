@@ -28,20 +28,49 @@ export const Base: FunctionalComponent<
               id={`cliente-${value.id_cliente}`}
             >
               <div class="flex flex-row justify-start p-2  space-x-2 text-black ">
-                <div class="font-bold">{"Razon_Social: "}</div>
-                <div>{value.Razon_Social}</div>
+                <div class="font-bold">{"Razon Social: "}</div>
+                <input
+                  class=" pl-1 border-gray-800 border-solid rounded-md border-2"
+                  value={value.Razon_Social}
+                  onChange={(e) => {
+                    setValues({
+                      ...value,
+                      Razon_Social: e.currentTarget.value,
+                    });
+                  }}
+                />
               </div>
               <div class="flex flex-row justify-start p-2  space-x-2 text-black ">
                 <div class="font-bold">{"CIF: "}</div>
-                <div>{value.CIF}</div>
+                <input
+                  class=" pl-1 border-gray-800 border-solid rounded-md border-2"
+                  value={value.CIF}
+                  onChange={(e) => {
+                    setValues({
+                      ...value,
+                      CIF: e.currentTarget.value,
+                    });
+                  }}
+                />
               </div>
               <div class="flex flex-col justify-start h-full p-2  space-x-2 text-black ">
                 <div class="font-bold">{"NOTAS: "}</div>
                 <textarea
                   value={value.OBSERVACIONES}
                   class="flex w-full h-1/2  border-gray-800 border-solid rounded-md border-2 p-2 text-black resize-none"
+                  onChange={(e) => {
+                    setValues({
+                      ...value,
+                      OBSERVACIONES: e.currentTarget.value,
+                    });
+                  }}
                 />
               </div>
+              <Save
+                data={{
+                  em: value,
+                }}
+              />
             </div>
           </div>
         )
@@ -60,7 +89,7 @@ export const Base: FunctionalComponent<
               <div class="flex flex-row justify-start p-2  space-x-2 text-black ">
                 <div class="font-bold">{"NOMBRE: "}</div>
                 <input
-                  class="border-gray-800 border-solid rounded-md border-2"
+                  class=" pl-1 border-gray-800 border-solid rounded-md border-2"
                   value={value.Nombre}
                   onChange={(e) => {
                     setValues({
@@ -73,6 +102,7 @@ export const Base: FunctionalComponent<
               <div class="flex flex-row justify-start p-2  space-x-2 text-black ">
                 <div class="font-bold">{"APELLIDOS: "}</div>
                 <input
+                  class=" pl-1 border-gray-800 border-solid rounded-md border-2"
                   value={value.Apellidos}
                   onChange={(e) => {
                     setValues({
@@ -85,6 +115,7 @@ export const Base: FunctionalComponent<
               <div class="flex flex-row justify-start p-2  space-x-2 text-black ">
                 <div class="font-bold">{"DNI: "}</div>
                 <input
+                  class=" pl-1 border-gray-800 border-solid rounded-md border-2"
                   value={value.DNI}
                   onChange={(e) => {
                     setValues({
